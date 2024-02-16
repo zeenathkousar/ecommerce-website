@@ -1,5 +1,6 @@
-const { hashfunc } = require("../helpers/authHelper");
+const { hashfunc, comparePassword } = require("../helpers/authHelper");
 const userModel = require("../models/userModel");
+const JWT = require("jsonwebtoken");
 
 const registerController = async (req, res) => {
   try {
@@ -28,19 +29,87 @@ const registerController = async (req, res) => {
       return res.status(200).send({
         success: true,
         message: "you already Registred!! Please Login",
-        error,
       });
     }
     //register user
-    const hashedPassword = await hashfunc;
+    const hashedPassword = await hashfunc(password);
+    //saving to db
+    const user = await new userModel({
+      name,
+      email,
+      phone,
+      address,
+      password: hashedPassword,
+    }).save();
+    res.status(201).send({
+      success: true,
+      message: "User Registered Successfully",
+      user,
+    });
   } catch (err) {
     console.log(err);
     res.status(500).send({
       success: false,
       message: "Error in Registration",
-      error,
+      err,
     });
   }
 };
 
-module.exports = { registerController };
+//POST LOGIN
+const loginController = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    //validation
+    if (!email || !password) {
+      return res.status(404).send({
+        success: false,
+        message: "Invalid Email or Password",
+      });
+    }
+    //check user
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "Email is not registered",
+      });
+    }
+    const match = await comparePassword(password, user.password);
+    if (!match) {
+      return res.status(200).send({
+        success: false,
+        message: "Invalid Password",
+      });
+    }
+    //token
+    const token = await JWT.sign({ _id: user.id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+    res.status(200).send({
+      success: true,
+      message: "Login Successfull",
+      user: {
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        address: user.address,
+      },
+      jwt: token,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      success: false,
+      message: "Error in login",
+      err,
+    });
+  }
+};
+
+//testController
+const testController = (req, res) => {
+  res.send("protected route");
+};
+
+module.exports = { registerController, loginController, testController };
