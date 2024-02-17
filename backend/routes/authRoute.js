@@ -6,7 +6,7 @@ const {
   testController,
 } = require("../controllers/authController");
 
-const requireSign = require("../middlewares/authMiddleware");
+const { requireSign, isAdmin } = require("../middlewares/authMiddleware");
 
 //router object
 const router = express.Router();
@@ -19,6 +19,6 @@ router.post("/register", registerController);
 router.post("/login", loginController);
 
 //test routes
-router.get("/test", requireSign, testController);
+router.get("/test", requireSign, isAdmin, testController);
 
 module.exports = router;
