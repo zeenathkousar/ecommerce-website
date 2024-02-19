@@ -17,3 +17,63 @@ font-style: italic; */
   font-weight: <weight>;
   font-style: normal;
 } */
+
+/* navbar css */
+.navbar{
+   font-family: "Poppins", sans-serif;
+   font-size: 17px;
+   line-height: 26px;
+   text-transform: uppercase;
+   box-shadow: 0 8px 6px -6px gray;
+   --webkit-box-shadow: 0.5px solid gray;
+   border-bottom:  solid gray !important;
+}
+
+.nav-link{
+  font-weight: 300 !important;
+}
+
+.active{
+  border-bottom: 1px solid black;
+}
+
+.navbar-brand{
+  font-weight: 700 ;
+  font-family: 'roboto',sans-serif;
+  letter-spacing: 3px;
+}
+
+
+
+/* ********footer ******* */
+
+.footer{
+  color:white;
+  padding: 25px;
+  background-color: rgba(92, 87, 87, 0.692);
+}
+
+.footer a{
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+
+}
+
+.footer a:hover{
+  color: snow;
+  border-bottom: 1px solid snow;
+
+}
+
+/* ****page not found page styling**** */
+.pnf{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5vh ;
+  font-family: "Playfair Display", serif;
+  font-size: 5vh;  
+  font-weight: 800;
+  min-height: 2vh;
+}
