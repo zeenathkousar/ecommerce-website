@@ -6,7 +6,7 @@ import { TbDeviceLandlinePhone } from "react-icons/tb";
 
 export const Contact = () => {
   return (
-    <Layout>
+    <Layout title={"Contact Us"}>
       <div className="contact">
         <img className="imgContact" src="contact.jpg" alt="contact img" />
         <h1 className="contactheading1">Contact US</h1>

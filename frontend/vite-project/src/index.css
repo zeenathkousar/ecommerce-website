@@ -77,3 +77,13 @@ font-style: italic; */
   font-weight: 800;
   min-height: 2vh;
 }
+
+
+/* ********Register Page************* */
+.register{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  flex-direction: column;
+}

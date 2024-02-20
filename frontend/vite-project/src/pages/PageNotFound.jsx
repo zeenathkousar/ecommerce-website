@@ -4,7 +4,7 @@ import { NavLink, Link } from "react-router-dom";
 
 export const PageNotFound = () => {
   return (
-    <Layout>
+    <Layout title={"Go back- Page Not found"}>
       <div className="pnf">
         <h1>404</h1>
         <p>Oops! Page Not found</p>
