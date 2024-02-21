@@ -5,6 +5,7 @@ const colors = require("colors");
 const morgan = require("morgan");
 const connectDB = require("./config/db");
 const JWT = require("jsonwebtoken");
+const cors = require("cors");
 
 //importing routes
 const authRoute = require("./routes/authRoute");
@@ -16,6 +17,7 @@ const dotenv = require("dotenv").config({ path: "" });
 connectDB();
 
 //configure morgan- middlewares
+app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
