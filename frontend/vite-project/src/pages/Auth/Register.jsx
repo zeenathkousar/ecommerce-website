@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Layout } from "../../components/layout/Layout";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
@@ -19,22 +19,27 @@ export const Register = () => {
     // console.log(name, email, password, address, phone);
     // toast.success("registered successfully");
     try {
-      const res = await axios.post("/api/v1/auth/register", {
-        name,
-        email,
-        password,
-        phone,
-        address,
-      });
+      const res = await axios.post(
+        "http://localhost:4000/api/v1/auth/register",
+        {
+          name,
+          email,
+          password,
+          phone,
+          address,
+        }
+      );
       if (res.data.success) {
-        toast.success(res.data.message);
+        toast(res.data && res.data.message);
+        console.log(success);
         Navigate("/login");
       } else {
-        toast.error(res.data.message);
+        console.log(err);
+        toast(res.data.message);
       }
     } catch (e) {
       console.log(e);
-      toast.error("Something went wrong ");
+      toast("Something went wrong ");
     }
   };
 
@@ -103,7 +108,7 @@ export const Register = () => {
           </div>
 
           <button type="submit" className="btn btn-primary">
-            Submit
+            Register
           </button>
         </form>
       </div>

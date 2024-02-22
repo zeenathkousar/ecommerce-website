@@ -11,6 +11,7 @@ import { Contact } from "./pages/Contact";
 import { Register } from "./pages/Auth/Register";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Login } from "./pages/Auth/Login";
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/policy" element={<Policy />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </>
