@@ -1,7 +1,8 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { MdOutlineLocalGroceryStore } from "react-icons/md";
-import { useAuth } from "../context/auth";
+import { useAuth } from "../../context/auth";
+import toast from "react-hot-toast";
 
 export const Header = () => {
   const [auth, setAuth] = useAuth();
@@ -12,6 +13,7 @@ export const Header = () => {
       token: "",
     });
     localStorage.removeItem("auth");
+    toast.success("logout successfull");
   };
   return (
     <>

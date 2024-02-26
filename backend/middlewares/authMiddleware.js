@@ -2,7 +2,7 @@ const JWT = require("jsonwebtoken");
 const userModel = require("../models/userModel");
 
 //Protected Routes token base
-const requireSign = async (req, res, next) => {
+const requireSignIn = async (req, res, next) => {
   try {
     console.log("try block of requiresign");
     console.log(`req headers are ${req.headers.authorization}`);
@@ -43,4 +43,4 @@ const isAdmin = async (req, res, next) => {
   }
 };
 
-module.exports = { requireSign, isAdmin };
+module.exports = { requireSignIn, isAdmin };

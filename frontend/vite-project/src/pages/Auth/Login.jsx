@@ -30,7 +30,12 @@ export const Login = () => {
           user: res.data.user,
           token: res.data.token,
         });
+        console.log("login success");
         console.log(success);
+        localStorage.setItem("auth", JSON.stringify(res.data));
+        var var1 = window.localStorage.setItem("auth", "ghyg");
+        res.cookie("auth", "jhuyfr");
+        console.log(`var1 is `, var1);
         Navigate("/");
       } else {
         console.log(err);
