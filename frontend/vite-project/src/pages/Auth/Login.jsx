@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Layout } from "../../components/layout/Layout";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 
 import axios from "axios";
@@ -12,6 +12,7 @@ export const Login = () => {
   const [auth, setAuth] = useAuth();
 
   const Navigate = useNavigate();
+  const location = useLocation();
 
   //form function
   const handleSubmit = async (e) => {
@@ -36,7 +37,7 @@ export const Login = () => {
         var var1 = window.localStorage.setItem("auth", "ghyg");
         res.cookie("auth", "jhuyfr");
         console.log(`var1 is `, var1);
-        Navigate("/");
+        Navigate(location.state || "/");
       } else {
         console.log(err);
         toast.success(res.data.message);

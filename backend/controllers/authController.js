@@ -112,4 +112,7 @@ const testController = (req, res) => {
   res.send("protected route");
 };
 
+//forgetpassword controller
+const forgetPasswordController = () => {};
+
 module.exports = { registerController, loginController, testController };
