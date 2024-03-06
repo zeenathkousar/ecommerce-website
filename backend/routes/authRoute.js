@@ -4,7 +4,7 @@ const {
   registerController,
   loginController,
   testController,
-  forgetPasswordController,
+  forgotPasswordController,
 } = require("../controllers/authController");
 
 const { requireSignIn, isAdmin } = require("../middlewares/authMiddleware");
@@ -23,10 +23,17 @@ router.post("/login", loginController);
 router.get("/test", requireSignIn, isAdmin, testController);
 
 //Forget Password  || POST
-router.post("forget-password", forgetPasswordController);
+router.post("/forgot-password", forgotPasswordController);
 
 //protected route auth
 router.get("/user-auth", requireSignIn, (req, res) => {
+  console.log("get req");
+  res.status(200).send({ ok: true });
+});
+
+//protected route auth
+router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
+  console.log("get req");
   res.status(200).send({ ok: true });
 });
 

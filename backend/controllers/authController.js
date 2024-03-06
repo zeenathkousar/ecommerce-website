@@ -5,7 +5,7 @@ const JWT = require("jsonwebtoken");
 const registerController = async (req, res) => {
   try {
     //taking input data
-    const { name, email, password, phone, address } = req.body;
+    const { name, email, password, phone, address, question } = req.body;
     //validators
     if (!name) {
       return res.send({ message: "Name is Required" });
@@ -21,6 +21,9 @@ const registerController = async (req, res) => {
     }
     if (!address) {
       return res.send({ message: "Address is Required" });
+    }
+    if (!question) {
+      return res.send({ message: "question must be answered." });
     }
     //check  user
     const existingUser = await userModel.findOne({ email });
@@ -40,6 +43,7 @@ const registerController = async (req, res) => {
       phone,
       address,
       password: hashedPassword,
+      question,
     }).save();
     res.status(201).send({
       success: true,
@@ -112,7 +116,53 @@ const testController = (req, res) => {
   res.send("protected route");
 };
 
-//forgetpassword controller
-const forgetPasswordController = () => {};
+//forgotPasswordController
+const forgotPasswordController = async (req, res) => {
+  try {
+    const { email, question, newPassword } = req.body;
+    if (!email) {
+      res.status(400).send({ message: "Email is requried" });
+    }
+    if (!question) {
+      res.status(400).send({ message: "Question is requried" });
+    }
+    if (!newPassword) {
+      res.status(400).send({ message: "New Password is requried" });
+    }
+    //checking email and password, if both are correct, then only we have to validate the new pssword.
+    const user = await userModel.findOne({ email, question });
+    console.log("user found");
+    console.log(user);
 
-module.exports = { registerController, loginController, testController };
+    //validation
+    if (user) {
+      console.log("user found1");
+      const hashed = await hashfunc(newPassword);
+      await userModel.findByIdAndUpdate(user._id, { password: hashed });
+      res.status(200).send({
+        success: true,
+        message: "Password Reset Successfully",
+      });
+    } else {
+      console.log("user not found");
+      return res.status(404).send({
+        success: false,
+        message: "Wrong Email or Answer",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Something went wrong",
+      error,
+    });
+  }
+};
+
+module.exports = {
+  registerController,
+  loginController,
+  testController,
+  forgotPasswordController,
+};

@@ -10,19 +10,22 @@ const AuthProvider = ({ children }) => {
   });
 
   //default axios
-  axios.defaults.headers.common["Authorization"] = auth?.token;
+  axios.defaults.headers.common["Authorization"] = auth?.jwt;
+
   useEffect(() => {
     const data = localStorage.getItem("auth");
     if (data) {
       const parseData = JSON.parse(data);
+      console.log("parse data:", parseData);
       //setting global state
       setAuth({
         ...auth,
         user: parseData.user,
-        token: parseData.token,
+        token: parseData.jwt,
       });
     }
-  }, [auth]);
+    //eslint-disable-next-line
+  }, []);
   return (
     <AuthContext.Provider value={[auth, setAuth]}>
       {children}

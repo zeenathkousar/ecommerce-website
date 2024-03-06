@@ -32,11 +32,11 @@ export const Login = () => {
           token: res.data.token,
         });
         console.log("login success");
-        console.log(success);
+        console.log(res.data.success);
         localStorage.setItem("auth", JSON.stringify(res.data));
-        var var1 = window.localStorage.setItem("auth", "ghyg");
-        res.cookie("auth", "jhuyfr");
-        console.log(`var1 is `, var1);
+        // var var1 = window.localStorage.setItem("auth", "ghyg");
+        // res.cookie("auth", "jhuyfr");
+        // console.log(`var1 is `, var1);
         Navigate(location.state || "/");
       } else {
         console.log(err);
@@ -77,6 +77,15 @@ export const Login = () => {
             />
           </div>
 
+          <div className="mb-3 ">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => Navigate("/forget-password")}
+            >
+              Forget Password
+            </button>
+          </div>
           <button type="submit" className="btn btn-primary">
             Login
           </button>

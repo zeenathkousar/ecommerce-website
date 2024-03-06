@@ -11,12 +11,15 @@ export const Register = () => {
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
+  const [question, setQuestion] = useState("");
+
   const Navigate = useNavigate();
 
   //form function
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(name, email, password, address, phone);
+    console.log(name, email, password, address, phone);
+    console.log("question is:", question);
     // toast.success("registered successfully");
     try {
       const res = await axios.post(
@@ -27,14 +30,16 @@ export const Register = () => {
           password,
           phone,
           address,
+          question,
         }
       );
       if (res.data.success) {
         toast(res.data && res.data.message);
-        console.log(success);
+        console.log("navigating to login page");
+        console.log("question is :", question);
+
         Navigate("/login");
       } else {
-        console.log(err);
         toast(res.data.message);
       }
     } catch (e) {
@@ -103,6 +108,18 @@ export const Register = () => {
               onChange={(e) => setAddress(e.target.value)}
               id="exampleInputAddress"
               placeholder="Enter Your Address"
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <input
+              type="text"
+              className="form-control"
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              id="exampleInputQuestion"
+              placeholder="What  is your favourite movie"
               required
             />
           </div>

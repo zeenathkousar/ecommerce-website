@@ -10,7 +10,7 @@ export const Spinner = () => {
     const interval = setInterval(() => {
       setCount((prevVal) => --prevVal);
     }, 1000);
-    count == 0 &&
+    count === 0 &&
       Navigate("/login", {
         state: location.pathname,
       });
